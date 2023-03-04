@@ -24,6 +24,7 @@ use frame_support::{
 use sp_std::{marker::PhantomData, prelude::*, result};
 use xcm::latest::prelude::*;
 use xcm_executor::traits::{Convert, Error as MatchError, MatchesNonFungibles, TransactAsset};
+// use pallet_contracts::{Pallet as Contracts, ContractExecResult, traits::Contract};
 
 pub struct NonFungiblesTransferAdapter<Assets, Matcher, AccountIdConverter, AccountId>(
 	PhantomData<(Assets, Matcher, AccountIdConverter, AccountId)>,
@@ -325,3 +326,94 @@ impl<
 		)
 	}
 }
+// pub struct WasmAdapter<
+//     Assets,
+//     Matcher,
+//     AccountIdConverter,
+//     AccountId,
+//     CheckAsset,
+//     CheckingAccount,
+// >(PhantomData<(Assets, Matcher, AccountIdConverter, AccountId, CheckAsset, CheckingAccount)>);
+// impl<
+//     Assets: contracts::Pallet<AccountId, Instance=DefaultInstance> + nonfungibles::Mutate<AccountId> + nonfungibles::Transfer<AccountId>,
+//     Matcher: MatchesNonFungibles<Assets::CollectionId, Assets::ItemId>,
+//     AccountIdConverter: Convert<MultiLocation, AccountId>,
+//     AccountId: Clone + Eq,
+//     CheckAsset: AssetChecking<Assets::CollectionId>,
+//     CheckingAccount: Get<Option<AccountId>>,
+// > TransactAsset for WasmAdapter<Assets, Matcher, AccountIdConverter, AccountId, CheckAsset, CheckingAccount>
+// {
+//     fn can_check_in(origin: &MultiLocation, what: &MultiAsset, context: &XcmContext) -> XcmResult {
+//         NonFungiblesMutateAdapter::<
+//             Assets,
+//             Matcher,
+//             AccountIdConverter,
+//             AccountId,
+//             CheckAsset,
+//             CheckingAccount,
+//         >::can_check_in(origin, what, context)
+//     }
+
+//     fn check_in(origin: &MultiLocation, what: &MultiAsset, context: &XcmContext) {
+//         NonFungiblesMutateAdapter::<
+//             Assets,
+//             Matcher,
+//             AccountIdConverter,
+//             AccountId,
+//             CheckAsset,
+//             CheckingAccount,
+//         >::check_in(origin, what, context)
+//     }
+
+//     fn can_check_out(dest: &MultiLocation, what: &MultiAsset, context: &XcmContext) -> XcmResult {
+//         NonFungiblesMutateAdapter::<
+//             Assets,
+//             Matcher,
+//             AccountIdConverter,
+//             AccountId,
+//             CheckAsset,
+//             CheckingAccount,
+//         >::can_check_out(dest, what, context)
+//     }
+
+//     fn check_out(dest: &MultiLocation, what: &MultiAsset, context: &XcmContext) {
+//         NonFungiblesMutateAdapter::<
+//             Assets,
+//             Matcher,
+//             AccountIdConverter,
+//             AccountId,
+//             CheckAsset,
+//             CheckingAccount,
+//         >::check_out(dest, what, context)
+//     }
+
+//     fn deposit_asset(what: &MultiAsset, who: &MultiLocation, context: &XcmContext) -> XcmResult {
+//         NonFungiblesMutateAdapter::<
+//             Assets,
+//             Matcher,
+//             AccountIdConverter,
+//             AccountId,
+//             CheckAsset,
+//             CheckingAccount,
+//         >::deposit_asset(what, who, context)
+//     }
+
+//     fn withdraw_asset(
+//         what: &MultiAsset,
+//         who: &MultiLocation,
+//         maybe_context: Option<&XcmContext>,
+//     ) -> result::Result<xcm_executor::Assets, XcmError> {
+//         NonFungiblesMutateAdapter::<
+//             Assets,
+//             Matcher,
+//             AccountIdConverter,
+//             AccountId,
+// 			Assets,
+// 			Matcher,
+// 			AccountIdConverter,
+// 			AccountId,
+// 			CheckAsset,
+// 			CheckingAccount,
+// 		>::withdraw_asset(what, who, maybe_context)
+// 	}
+// }
